@@ -131,7 +131,7 @@ def send_message(recipient_id, message_text):
 
 def send_sticker(recipient_id, sticker_id, url_sticker):
 
-    log("sending message to {recipient}: {text}".format(recipient=recipient_id, sticker_id=sticker_id))
+    log("sending message to {recipient}: {sticker_id}".format(recipient=recipient_id, sticker_id=sticker_id))
 
     params = {
         "access_token": os.environ["PAGE_ACCESS_TOKEN"]
