@@ -52,50 +52,50 @@ def webhook():
                         message_text = ' ' + message_text + ' '
 
                     
-                    if 'create' in message_text:
-                        message_text = message_text.replace('create', ' ')
-                        message_text = message_text.replace('light', ' ')
-                        light_name = message_text.strip()
-                        light_name = light_name.replace(' ', '_')
-                        url = "http://celilsemi.erkiner.com/facebook/index.html#{}{}".format(sender_id, light_name)
+                        if 'create' in message_text:
+                            message_text = message_text.replace('create', ' ')
+                            message_text = message_text.replace('light', ' ')
+                            light_name = message_text.strip()
+                            light_name = light_name.replace(' ', '_')
+                            url = "http://celilsemi.erkiner.com/facebook/index.html#{}{}".format(sender_id, light_name)
+                            
+                            response = requests.get(url)
+                            send_message(sender_id, url)
                         
-                        response = requests.get(url)
-                        send_message(sender_id, url)
-                    
-                    elif ' on ' in message_text:
-                        message_text = message_text.replace(' on ', ' ')
-                        message_text = message_text.replace('turn', ' ')
-                        message_text = message_text.replace('light', ' ')
-                        light_name = message_text.strip()
-                        light_name = light_name.replace(' ', '_')
-                        url = "http://celilsemi.erkiner.com/facebook/api/on.php?b={}{}".format(sender_id, light_name)
+                        elif ' on ' in message_text:
+                            message_text = message_text.replace(' on ', ' ')
+                            message_text = message_text.replace('turn', ' ')
+                            message_text = message_text.replace('light', ' ')
+                            light_name = message_text.strip()
+                            light_name = light_name.replace(' ', '_')
+                            url = "http://celilsemi.erkiner.com/facebook/api/on.php?b={}{}".format(sender_id, light_name)
+                            
+                            send_message(sender_id, "roger that!")
+                            response = requests.get(url)
+                            #send_message(url)
                         
-                        send_message(sender_id, "roger that!")
-                        response = requests.get(url)
-                        #send_message(url)
-                    
-                    elif ' off ' in message_text:
-                        message_text = message_text.replace(' off ', ' ')
-                        message_text = message_text.replace('turn', ' ')
-                        message_text = message_text.replace('light', ' ')
-                        light_name = message_text.strip()
-                        light_name = light_name.replace(' ', '_')
-                        url = "http://celilsemi.erkiner.com/facebook/api/off.php?b={}{}".format(sender_id, light_name)
-                        
-                        send_message(sender_id, "roger that!")
-                        response = requests.get(url)
-                        #send_message(sender_id, url)
+                        elif ' off ' in message_text:
+                            message_text = message_text.replace(' off ', ' ')
+                            message_text = message_text.replace('turn', ' ')
+                            message_text = message_text.replace('light', ' ')
+                            light_name = message_text.strip()
+                            light_name = light_name.replace(' ', '_')
+                            url = "http://celilsemi.erkiner.com/facebook/api/off.php?b={}{}".format(sender_id, light_name)
+                            
+                            send_message(sender_id, "roger that!")
+                            response = requests.get(url)
+                            #send_message(sender_id, url)
 
-                    elif ' hello ' in message_text or ' hi ' in message_text or ' hey ' in message_text:
-                        send_message(sender_id, "Hi, who is your favorite NBA player?")
+                        elif ' hello ' in message_text or ' hi ' in message_text or ' hey ' in message_text:
+                            send_message(sender_id, "Hi, who is your favorite NBA player?")
 
-                    elif ' kobe ' not in message_text or ' Kobe ' not in message_text:
-                        send_message(sender_id, "Nah, Kobe is the best.")
-                        if ' lebron ' in message_text or ' Lebron ' in message_text:
-                            send_message(sender_id, "LeBron sucks. Crying baby always crying for help.")
+                        elif ' kobe ' not in message_text or ' Kobe ' not in message_text:
+                            send_message(sender_id, "Nah, Kobe is the best.")
+                            if ' lebron ' in message_text or ' Lebron ' in message_text:
+                                send_message(sender_id, "LeBron sucks. Crying baby always crying for help.")
 
-                    else:
-                        send_message(sender_id, "lol")
+                        else:
+                            send_message(sender_id, "lol")
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
