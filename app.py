@@ -48,6 +48,7 @@ def webhook():
 
                     #if 'text' in messaging_event["message"]:
                     message_text = messaging_event["message"]["text"]  # the message's text
+
                     message_text = ' ' + message_text + ' '
 
                     
