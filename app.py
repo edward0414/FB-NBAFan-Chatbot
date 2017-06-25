@@ -91,13 +91,19 @@ def webhook():
                             send_message(sender_id, "Hi, who do you think it is the best NBA player ever?")
 
                         elif ' lebron ' in message_text or ' Lebron ' in message_text:
-                            send_message(sender_id, "Nah, Kobe is the best. LeBron sucks. Crying baby always crying for help.")
+                            send_message(sender_id, "LeBron sucks. Crying baby always crying for help. Gimme another name.")
 
                         elif 'curry' in message_text or 'Curry' in message_text:
-                            send_message(sender_id, "Pfff, Curry is just a shooter. Durant carried his ass.")
+                            send_message(sender_id, "Pfff, Curry is just a shooter. Durant carried his ass. Gimme another name.")
+
+                        elif 'kobe' in message_text or 'Kobe' in message_text:
+                            send_message(sender_id, "Man, he is really good. You know basketball! Gimme another name.")
+
+                        elif 'jordan' in message_text or 'Jordan' in message_text:
+                            send_message(sender_id, "The GOAT. Right answer!")
 
                         elif 'fuck' in message_text or 'shit' in message_text or 'dick' in message_text or 'ass' in message_text:
-                            send_message(sender_id, "Cursing? You are a rude fan. Must be a typical Warriors bandwagon.")
+                            send_message(sender_id, "Cursing? You are very rude. Must be a typical Warriors bandwagon.")
 
                         else:
                             send_message(sender_id, "lol...")
