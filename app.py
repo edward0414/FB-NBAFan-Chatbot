@@ -39,8 +39,9 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     
                     if 'sticker_id' in messaging_event["message"]:
-                        sticker_id = messaging_event["message"]["attachments"][0]["payload"]["sticker_id"]
+                        sticker_id = messaging_event["message"]["sticker_id"]
                         url_sticker = messaging_event["message"]["attachments"][0]["payload"]["url"]
+                        log("RECEIVING sticker message from {recipient}: {sticker_id}".format(recipient=recipient_id, sticker_id=sticker_id))
                         send_sticker(sender_id, sticker_id, url_sticker)
 
                         if 'sticker_id' == "369239383222810" or 'sticker_id' == "369239263222822" or 'sticker_id' == "369239343222814":
@@ -48,7 +49,7 @@ def webhook():
 
                     if 'text' in messaging_event["message"]:
                         message_text = messaging_event["message"]["text"]  # the message's text
-
+                        log("RECEIVING message from {recipient}: {text}".format(recipient=recipient_id, text=message_text))
                         message_text = ' ' + message_text + ' '
 
                     
@@ -87,15 +88,19 @@ def webhook():
                             #send_message(sender_id, url)
 
                         elif ' hello ' in message_text or ' hi ' in message_text or ' hey ' in message_text:
-                            send_message(sender_id, "Hi, who is your favorite NBA player?")
+                            send_message(sender_id, "Hi, who do you think it is the best NBA player ever?")
 
-                        elif ' kobe ' not in message_text or ' Kobe ' not in message_text:
-                            send_message(sender_id, "Nah, Kobe is the best.")
-                            if ' lebron ' in message_text or ' Lebron ' in message_text:
-                                send_message(sender_id, "LeBron sucks. Crying baby always crying for help.")
+                        elif ' lebron ' in message_text or ' Lebron ' in message_text:
+                            send_message(sender_id, "Nah, Kobe is the best. LeBron sucks. Crying baby always crying for help.")
+
+                        elif 'curry' in message_text or 'Curry' in message_text:
+                            send_message(sender_id, "Pfff, Curry is just a shooter. Durant carried his ass.")
+
+                        elif 'fuck' in message_text or 'shit' in message_text or 'dick' in message_text or 'ass' in message_text:
+                            send_message(sender_id, "Cursing? You are a rude fan. Must be a typical Warriors bandwagon.")
 
                         else:
-                            send_message(sender_id, "lol")
+                            send_message(sender_id, "lol...")
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
@@ -134,7 +139,7 @@ def send_message(recipient_id, message_text):
 
 def send_sticker(recipient_id, sticker_id, url_sticker):
 
-    log("sending message to {recipient}: {sticker_id}".format(recipient=recipient_id, sticker_id=sticker_id))
+    log("SENDING message to {recipient}: {sticker_id}".format(recipient=recipient_id, sticker_id=sticker_id))
 
     params = {
         "access_token": os.environ["PAGE_ACCESS_TOKEN"]
