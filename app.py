@@ -44,7 +44,7 @@ def webhook():
                         log("RECEIVING sticker message from {recipient}: {sticker_id}".format(recipient=recipient_id, sticker_id=sticker_id))
                         send_sticker(sender_id, sticker_id, url_sticker)
 
-                        if 'sticker_id' == "369239383222810" or 'sticker_id' == "369239263222822" or 'sticker_id' == "369239343222814":
+                        if sticker_id == 369239383222810 or sticker_id == 369239263222822 or sticker_id == 369239343222814:
                             send_message(sender_id, "Don't give me that Jimmy Sama thumb up.")
 
                     if 'text' in messaging_event["message"]:
