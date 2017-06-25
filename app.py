@@ -38,18 +38,18 @@ def webhook():
                     sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     
-                    #if 'sticker_id' in messaging_event["message"]:
-                    #    sticker_id = messaging_event["message"]["sticker_id"]
-                    #    url_sticker = messaging_event["message"]["attachments"][0]["payload"]["url"]
-                    #    send_sticker(sender_id, sticker_id, url_sticker)
+                    if 'sticker_id' in messaging_event["message"]:
+                        sticker_id = messaging_event["message"]["attachments"][0]["payload"]["sticker_id"]
+                        url_sticker = messaging_event["message"]["attachments"][0]["payload"]["url"]
+                        send_sticker(sender_id, sticker_id, url_sticker)
 
-                    #    if 'sticker_id' == "369239383222810" or 'sticker_id' == "369239263222822" or 'sticker_id' == "369239343222814":
-                    #        send_message(sender_id, "Don't give me that Jimmy Sama thumb up.")
+                        if 'sticker_id' == "369239383222810" or 'sticker_id' == "369239263222822" or 'sticker_id' == "369239343222814":
+                            send_message(sender_id, "Don't give me that Jimmy Sama thumb up.")
 
-                    #if 'text' in messaging_event["message"]:
-                    message_text = messaging_event["message"]["text"]  # the message's text
+                    if 'text' in messaging_event["message"]:
+                        message_text = messaging_event["message"]["text"]  # the message's text
 
-                    message_text = ' ' + message_text + ' '
+                        message_text = ' ' + message_text + ' '
 
                     
                     if 'create' in message_text:
