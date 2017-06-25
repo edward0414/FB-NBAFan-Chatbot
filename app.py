@@ -43,7 +43,7 @@ def webhook():
 
                     if 'sticker_id' in messaging_event["message"]:
                         sticker_id = messaging_event["message"]["sticker_id"]
-                        url_sticker = message["attachments"][0]["payload"]["url"]
+                        url_sticker = messaging_event["message"]["attachments"][0]["payload"]["url"]
                         send_sticker(sender_id, sticker_id, url_sticker)
 
                         if 'sticker_id' == "369239383222810" or 'sticker_id' == "369239263222822" or 'sticker_id' == "369239343222814":
@@ -87,9 +87,9 @@ def webhook():
                         send_message(sender_id, "Hi, who is your favorite NBA player?")
 
                     elif ' kobe ' not in message_text or ' Kobe ' not in message_text:
+                        send_message(sender_id, "Nah, Kobe is the best.")
                         if ' lebron ' in message_text or ' Lebron ' in message_text:
                             send_message(sender_id, "LeBron sucks. Crying baby always crying for help.")
-                        send_message(sender_id, "Nah, Kobe is the best.")
 
                     else:
                         send_message(sender_id, "lol")
