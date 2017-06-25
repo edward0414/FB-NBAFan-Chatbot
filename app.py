@@ -37,10 +37,17 @@ def webhook():
 
                     sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
-                    message_text = messaging_event["message"]["text"]  # the message's text
+                    if 'text' in messaging_event["message"]:
+                        message_text = messaging_event["message"]["text"]  # the message's text
+                        message_text = ' ' + message_text + ' '
 
-                    send_message(sender_id, "roger that!")
-                    message_text = ' ' + message_text + ' '
+                    if 'sticker_id' in messaging_event["message"]:
+                        sticker_id = messaging_event["message"]["sticker_id"]
+                        url_sticker = message["attachments"][0]["payload"]["url"]
+                        send_sticker(sender_id, sticker_id, url_sticker)
+
+                        if 'sticker_id' == "369239383222810" or 'sticker_id' == "369239263222822" or 'sticker_id' == "369239343222814":
+                            send_message(sender_id, "Don't give me that Jimmy Sama thumb up.")
                     
                     if 'create' in message_text:
                         message_text = message_text.replace('create', ' ')
@@ -52,7 +59,7 @@ def webhook():
                         response = requests.get(url)
                         send_message(sender_id, url)
                     
-                    if ' on ' in message_text:
+                    elif ' on ' in message_text:
                         message_text = message_text.replace(' on ', ' ')
                         message_text = message_text.replace('turn', ' ')
                         message_text = message_text.replace('light', ' ')
@@ -60,10 +67,11 @@ def webhook():
                         light_name = light_name.replace(' ', '_')
                         url = "http://celilsemi.erkiner.com/facebook/api/on.php?b={}{}".format(sender_id, light_name)
                         
+                        send_message(sender_id, "roger that!")
                         response = requests.get(url)
                         #send_message(url)
                     
-                    if ' off ' in message_text:
+                    elif ' off ' in message_text:
                         message_text = message_text.replace(' off ', ' ')
                         message_text = message_text.replace('turn', ' ')
                         message_text = message_text.replace('light', ' ')
@@ -71,8 +79,20 @@ def webhook():
                         light_name = light_name.replace(' ', '_')
                         url = "http://celilsemi.erkiner.com/facebook/api/off.php?b={}{}".format(sender_id, light_name)
                         
+                        send_message(sender_id, "roger that!")
                         response = requests.get(url)
                         #send_message(sender_id, url)
+
+                    elif ' hello ' in message_text or ' hi ' in message_text or ' hey ' in message_text:
+                        send_message(sender_id, "Hi, who is your favorite NBA player?")
+
+                    elif ' kobe ' not in message_text or ' Kobe ' not in message_text:
+                        if ' lebron ' in message_text or ' Lebron ' in message_text:
+                            send_message(sender_id, "LeBron sucks. Crying baby always crying for help.")
+                        send_message(sender_id, "Nah, Kobe is the best.")
+
+                    else:
+                        send_message(sender_id, "lol")
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
@@ -102,6 +122,32 @@ def send_message(recipient_id, message_text):
         },
         "message": {
             "text": message_text
+        }
+    })
+    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
+    if r.status_code != 200:
+        log(r.status_code)
+        log(r.text)
+
+def send_sticker(recipient_id, sticker_id, url_sticker):
+
+    log("sending message to {recipient}: {text}".format(recipient=recipient_id, sticker_id=sticker_id))
+
+    params = {
+        "access_token": os.environ["PAGE_ACCESS_TOKEN"]
+    }
+    headers = {
+        "Content-Type": "application/json"
+    }
+    data = json.dumps({
+        "recipient": {
+            "id": recipient_id
+        },
+        "message": {
+            "attachment": {
+                "type": "image",
+                "payload": {"url": url_sticker}
+            }
         }
     })
     r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
