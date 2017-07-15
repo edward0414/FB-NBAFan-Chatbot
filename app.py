@@ -99,6 +99,12 @@ def webhook():
                         elif 'kobe' in message_text or 'Kobe' in message_text:
                             send_message(sender_id, "Man, he is really good. You know basketball! Gimme another name.")
 
+                        elif 'lavar' in message_text or 'Lavar' in message_text:
+                            send_message(sender_id, "Talking about Ball control eh?")
+
+                        elif 'jimmy' in message_text or 'Jimmy' in message_text:
+                            send_message(sender_id, "Jimmy Lin is a beast.")
+
                         elif 'Durant' in message_text or 'durant' in message_text:
                             send_message(sender_id, "Smh... he joined the most stacked team in the league in order to win. Gimme another name.")
 
